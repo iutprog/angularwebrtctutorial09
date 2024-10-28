@@ -1,0 +1,86 @@
+<div class="container">
+  <!-- Left menu column -->
+  <div class="menu-column">
+    <h3>Media Controls</h3>
+    <!-- Button to request media access (pop-up) -->
+    <button id="MediaRequest" (click)="requestMediaAccess()">Request Media Access</button>
+
+    <!-- Button to attach the video stream (only available if media access is granted) -->
+    <button id="AttachStream" (click)="attachStream()" [disabled]="!mediaGranted">Attach Video Stream</button>
+
+    <!-- Button to stop the video stream (only available if media access is granted and stream is attached) -->
+    <button id="StopStream" (click)="stopStream()" [disabled]="!mediaGranted">Stop Video Stream</button>
+
+    <!-- Input fields for video size -->
+    <div class="video-size-inputs">
+      <h4>Modify Video Track Size (Using HTML Properties)</h4>
+      <label for="videoWidth">Width:</label>
+      <input type="number" id="videoWidth" [(ngModel)]="videoWidth" min="100" max="1920">
+      
+      <label for="videoHeight">Height:</label>
+      <input type="number" id="videoHeight" [(ngModel)]="videoHeight" min="100" max="1080">
+      
+      <!-- Apply button to change video size -->
+      <button id="ApplySize" (click)="applyVideoSize()" [disabled]="!mediaGranted">Apply Video Size</button>
+    </div>
+
+       <!-- Input fields for modifying video size using capabilities -->
+       <div class="video-size-inputs">
+        <h4>Modify Video Track Size (Using Capabilities)</h4>
+        <label for="trackWidth">Track Width:</label>
+        <input type="number" id="trackWidth" [(ngModel)]="videoWidth" [min]="trackCapabilities?.width?.min || 100" [max]="trackCapabilities?.width?.max || 1920">
+        
+        <label for="trackHeight">Track Height:</label>
+        <input type="number" id="trackHeight" [(ngModel)]="videoHeight" [min]="trackCapabilities?.height?.min || 100" [max]="trackCapabilities?.height?.max || 1080">
+        
+        <!-- Button to modify track size using getCapabilities() -->
+        <button id="ModifyTrackSize" (click)="modifyVideoTrackSize()" [disabled]="!mediaGranted">Modify Track Size</button>
+      </div>
+<!-- Button to stop the video stream (only available if media access is granted and stream is attached) -->
+<button id="StopStream" (click)="getCapabilitiesAndConstraints()" [disabled]="!mediaGranted">Shows Capabilities-Constraints</button>
+ 
+ <!-- Input fields for modifying frame rate -->
+ <div class="video-frame-rate-input">
+  <h4>Modify Frame Rate</h4>
+  <label for="frameRate">Frame Rate (fps):</label>
+  <input type="number" id="frameRate" [(ngModel)]="videoFrameRate" [min]="trackCapabilities?.frameRate?.min || 1" [max]="trackCapabilities?.frameRate?.max || 60">
+  
+  <!-- Button to modify frame rate using getCapabilities() -->
+  <button id="ModifyFrameRate" (click)="modifyVideoTrackFrameRate()" [disabled]="!mediaGranted">Modify Frame Rate</button>
+</div>
+
+ <!-- Input fields for modifying aspect ratio -->
+ <div class="video-aspect-ratio-input">
+  <h4>Modify Aspect Ratio</h4>
+  <label for="aspectRatio">Aspect Ratio (e.g., 1.777 for 16:9):</label>
+  <input type="number" id="aspectRatio" [(ngModel)]="videoAspectRatio" step="0.01">
+  
+  <!-- Button to modify aspect ratio using calculated width and height -->
+  <button id="ModifyAspectRatio" (click)="modifyVideoAspectRatio()" [disabled]="!mediaGranted">Modify Aspect Ratio</button>
+</div>
+  <!-- Video Recordings  -->
+
+<button (click)="startRecording()" [disabled]="!mediaGranted || recording">Start Recording</button>
+<button (click)="stopRecording()" [disabled]="!recording">Stop Recording</button>
+
+<!-- Download -->
+<button (click)="downloadRecordedVideo()" [disabled]="!recordedBlob">download Video</button>
+
+
+</div>
+
+<div class="video-container">
+  <!-- Live stream display -->
+  <div class="video-display">
+    <h4>Live Stream</h4>
+    <video #videoElement width="640" height="480" autoplay></video>
+  </div>
+
+  <!-- Playback section, appears directly below live stream -->
+  <div *ngIf="recordedVideoUrl" class="playback-display">
+    <h4>Recorded Video Playback</h4>
+    <video #playbackElement [src]="recordedVideoUrl" controls width="640" height="480"></video>
+  </div>
+</div>
+
+</div>

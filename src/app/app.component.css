@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+}
+
+.menu-column {
+  width: 200px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-right: 1px solid #ddd;
+}
+
+.menu-column h3 {
+  margin-bottom: 20px;
+}
+
+.menu-column button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-column button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.video-size-inputs {
+  margin-top: 20px;
+}
+
+.video-size-inputs label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.video-size-inputs input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.video-display {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+video {
+  border: 2px solid #ccc;
+}
+
+.video-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align the videos */
+  margin-top: 20px; /* Add spacing between controls and video container */
+}
+
+.video-display {
+  margin-bottom: 20px; /* Space between live video and playback video */
+}
+
+.playback-display {
+  margin-top: 20px; /* Space between live stream and playback sections */
+}
